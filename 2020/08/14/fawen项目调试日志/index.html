@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="法问项目布置上线调试记录将自己用springboot+vue+mysql的项目通过docker(前端部分没有)布置上了云服务器，过程中非常折磨，踩得坑很多，终于成功了。只有把它记录下来，以后碰到类似的坑可以避过去。  docke后端：  测试启动：  mvn spring-boot:run 123456789- 创建Dockerfile文件:  - &#96;&#96;&#96;shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="法问项目布置上线调试记录">
+<meta property="og:url" content="http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/index.html">
+<meta property="og:site_name" content="Z&#39;s Blog">
+<meta property="og:description" content="法问项目布置上线调试记录将自己用springboot+vue+mysql的项目通过docker(前端部分没有)布置上了云服务器，过程中非常折磨，踩得坑很多，终于成功了。只有把它记录下来，以后碰到类似的坑可以避过去。  docke后端：  测试启动：  mvn spring-boot:run 123456789- 创建Dockerfile文件:  - &#96;&#96;&#96;shell">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-14T04:47:41.621Z">
+<meta property="article:modified_time" content="2020-08-28T07:57:07.555Z">
+<meta property="article:author" content="Z">
+<meta property="article:tag" content="Project Review">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>法问项目布置上线调试记录</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/07/31/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&text=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&title=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&is_video=false&description=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=法问项目布置上线调试记录&body=Check out this article: http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&title=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&title=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&title=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&title=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&name=法问项目布置上线调试记录&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&t=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#法问项目布置上线调试记录"><span class="toc-number">1.</span> <span class="toc-text">法问项目布置上线调试记录</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        法问项目布置上线调试记录
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Z's Blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-14T04:47:41.621Z" itemprop="datePublished">2020-08-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Project-Review/" rel="tag">Project Review</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="法问项目布置上线调试记录"><a href="#法问项目布置上线调试记录" class="headerlink" title="法问项目布置上线调试记录"></a>法问项目布置上线调试记录</h1><p>将自己用springboot+vue+mysql的项目通过docker(前端部分没有)布置上了云服务器，过程中非常折磨，踩得坑很多，终于成功了。只有把它记录下来，以后碰到类似的坑可以避过去。</p>
+<ul>
+<li><p>docke后端：</p>
+<ul>
+<li><p>测试启动：</p>
+<ul>
+<li><pre><code class="shell">mvn spring-boot:run
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 创建Dockerfile文件:</span><br><span class="line"></span><br><span class="line">  - &#96;&#96;&#96;shell</span><br><span class="line">    FROM java:8</span><br><span class="line">    VOLUME &#x2F;tmp</span><br><span class="line">    ADD fawen-0.0.1-SNAPSHOT.jar fawen.jar</span><br><span class="line">    EXPOSE 8080</span><br><span class="line">    ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;&#x2F;fawen.jar&quot;]</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+</ul>
+</li>
+<li><p>MVN打jar包，布置到与dockerfile同一个文件夹</p>
+</li>
+<li><p>然后docker build -t fawen_server . 启动</p>
+</li>
+<li><p>然后run起容器</p>
+<ul>
+<li><pre><code class="shell">docker run --name fawen_server -d -p 8080:8080 -v /opt/jar/springBootDocker:/log fawen_server
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- mysql:</span><br><span class="line"></span><br><span class="line">  - 成功创建：</span><br><span class="line"></span><br><span class="line">    - &#96;&#96;&#96;shell</span><br><span class="line">      docker run -d -p 3306:3306 -v &#x2F;docker&#x2F;mysql&#x2F;conf:&#x2F;etc&#x2F;mysql&#x2F;conf.d -v &#x2F;docker&#x2F;mysql&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql -e MYSQL_ROOT_PASSWORD&#x3D;belldandy5 --name mysql mysql:8.0.16</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+</ul>
+</li>
+<li><p>创建以后，进入容器内的mysql</p>
+<ul>
+<li><pre><code class="mysql">source 文件路径(导入sql文件)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 前端：</span><br><span class="line"></span><br><span class="line">  - 先将已经测试可以跑起来的项目文件夹拷入服务器</span><br><span class="line"></span><br><span class="line">  - &#96;&#96;&#96;shell</span><br><span class="line">    npm install webpack webpack-dev-server -g</span><br><span class="line">    </span><br><span class="line">    rm -rf node_modules</span><br><span class="line">    rm package-lock.json</span><br><span class="line">    npm cache clear --force</span><br><span class="line">    npm install</span><br><span class="line">    npm run dev</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+</ul>
+</li>
+<li><p>安装组件，例如element-ui,axios等</p>
+</li>
+<li><p>一直保证dev server 在运行的命令：</p>
+<ul>
+<li><pre><code class="shell">nohup npm run dev &gt;/dev/null 2&gt;&amp;1 &amp; exit
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 各种各样的坑：</span><br><span class="line"></span><br><span class="line">  - 没开swap虚拟内存，如果服务器性能差，mysql会跑不起来。</span><br><span class="line"></span><br><span class="line">    - &#96;&#96;&#96;shell</span><br><span class="line">      启用swap:</span><br><span class="line">      </span><br><span class="line">      dd if&#x3D;&#x2F;dev&#x2F;zero of&#x3D;&#x2F;swapfile bs&#x3D;1M count&#x3D;1024</span><br><span class="line">      </span><br><span class="line">      mkswap &#x2F;swapfile</span><br><span class="line">      </span><br><span class="line">      swapon &#x2F;swapfile</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+</ul>
+</li>
+<li><p>容器内安装vim</p>
+<ul>
+<li><pre><code class="shell">apt-get update
+apt-get install vim
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- npm run dev在linux后台持久运行</span><br><span class="line"></span><br><span class="line">  - &#96;&#96;&#96;shell</span><br><span class="line">    which nohup</span><br><span class="line">    </span><br><span class="line">    #复制地址，一般是&#x2F;usr&#x2F;bin</span><br><span class="line">    </span><br><span class="line">    cd &#x2F;usr&#x2F;bin</span><br><span class="line">    vi .bash_profile</span><br><span class="line">    </span><br><span class="line">    #在.bash_profile里写</span><br><span class="line">    PATH&#x3D;$PATH:$HOME&#x2F;bin:&#x2F;usr&#x2F;bin</span><br><span class="line">    </span><br><span class="line">    source ~&#x2F;.bash_profile</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+<li><p>如果想记录日志文件</p>
+<ul>
+<li><pre><code class="shell">touch my.log
+chmod u+w my.log
+nohup npm run dev &gt; my.log 2&gt;my.log &amp; exit
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 如果不想记录日志</span><br><span class="line"></span><br><span class="line">  - &#96;&#96;&#96;shell</span><br><span class="line">    nohup npm run dev &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1 &amp; exit</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>npm run dev跑起来了，服务器端口也打通了，但是通过浏览器访问不到项目</p>
+<ul>
+<li>将/config/index.js中的设置从localhost改为0.0.0.0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#法问项目布置上线调试记录"><span class="toc-number">1.</span> <span class="toc-text">法问项目布置上线调试记录</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&text=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&title=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&is_video=false&description=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=法问项目布置上线调试记录&body=Check out this article: http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&title=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&title=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&title=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&title=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&name=法问项目布置上线调试记录&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/08/14/fawen%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E6%97%A5%E5%BF%97/&t=法问项目布置上线调试记录" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020
+    Z
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'A-162624402-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
